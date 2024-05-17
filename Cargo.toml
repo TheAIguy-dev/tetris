@@ -6,14 +6,12 @@ edition = "2021"
 [dependencies]
 bevy = { version = "0.13.2", features = ["dynamic_linking"] }
 iyes_perf_ui = "0.2.3"
+rand = "0.8.5"
 
 [profile.dev]
 opt-level = 1
 
 [profile.dev.package."*"]
-strip = true
-debug = false
-codegen-units = 1
 opt-level = 3
 
 [profile.release]
