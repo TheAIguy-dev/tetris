@@ -1,0 +1,33 @@
+[package]
+name = "tetris"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { version = "0.13.2", features = ["dynamic_linking"] }
+iyes_perf_ui = "0.2.3"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+strip = true
+debug = false
+codegen-units = 1
+opt-level = 3
+
+[profile.release]
+strip = true
+debug = false
+lto = true
+codegen-units = 1
+opt-level = 3
+panic = "abort"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-Clink-arg=-fuse-ld=lld", "-Zshare-generics=y", "-Zthreads=0"]
+
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld.exe"
+rustflags = ["-Zshare-generics=n", "-Zthreads=0"]
