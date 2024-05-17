@@ -4,6 +4,7 @@ use bevy::diagnostic::{
     EntityCountDiagnosticsPlugin, FrameTimeDiagnosticsPlugin, SystemInformationDiagnosticsPlugin,
 };
 use bevy::input::common_conditions::input_just_pressed;
+use bevy::log::LogPlugin;
 use bevy::prelude::*;
 use bevy::window::close_on_esc;
 use iyes_perf_ui::prelude::*;
@@ -155,7 +156,10 @@ impl Board {
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(LogPlugin {
+            level: bevy::log::Level::ERROR,
+            ..default()
+        }))
         // diagnostics
         .add_plugins(FrameTimeDiagnosticsPlugin)
         .add_plugins(EntityCountDiagnosticsPlugin)
@@ -163,7 +167,7 @@ fn main() {
         .add_plugins(PerfUiPlugin)
         // resources
         .insert_resource(MoveDownTimer(Timer::from_seconds(
-            0.1,
+            0.3,
             TimerMode::Repeating,
         )))
         .insert_resource(Board([[None; BOARD_WIDTH]; BOARD_HEIGHT]))
