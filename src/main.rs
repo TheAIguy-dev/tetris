@@ -373,8 +373,8 @@ fn update_piece(mut commands: Commands, mut piece: Query<&mut Piece>) {
     }
 }
 
-fn update_dead_pieces(mut commands: Commands, mut query: Query<(Entity, &mut DeadPiece)>) {
-    for (entity, dead_piece) in query.iter_mut() {
+fn update_dead_pieces(mut commands: Commands, query: Query<(Entity, &mut DeadPiece)>) {
+    for (entity, dead_piece) in &query {
         commands
             .entity(entity)
             .insert(dead_piece.get_block_transform());
